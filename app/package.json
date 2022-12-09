@@ -1,0 +1,64 @@
+{
+  "name": "@workspace/app",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "app:dev": "cross-env BROWSER=none PORT=9983 react-scripts start",
+    "app:browser": "PORT=9983 node scripts/start.mjs",
+    "start": "multiplerun dev",
+    "build": "react-scripts build",
+    "test": "react-scripts test --colors --passWithNoTests"
+  },
+  "multiplerun": {
+    "dev": [
+      "npm run app:dev",
+      {
+        "command": "npm run app:browser",
+        "wait": "15000"
+      }
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "lint-staged": {
+    "src/{**/*,*}/*.{ts,tsx}": [
+      "cross-env CI=true react-scripts test --colors --findRelatedTests"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "chrome > 60",
+      "firefox > 60",
+      "safari > 12"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@terra-money/terra.js": "^3.0.1",
+    "@terra-money/wallet-provider": "^3.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.18.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.0",
+    "@types/jest": "^27.0.2",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "terra-web-extension": "^0.14.0",
+    "typescript": "^4.3.5",
+    "cross-env": "^7.0.3",
+    "lint-staged": "^11.2.6",
+    "multiplerun": "^2.0.1",
+    "react-scripts": "4.0.3"
+  }
+}
